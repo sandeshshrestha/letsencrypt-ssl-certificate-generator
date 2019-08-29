@@ -1,0 +1,3 @@
+#!/bin/bash
+
+certbot certonly --manual --preferred-challenges dns -d "$CERT_DOMAIN" --agree-tos -m "$CERT_EMAIL" --manual-public-ip-logging-ok

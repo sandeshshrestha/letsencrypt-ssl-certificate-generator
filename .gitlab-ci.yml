@@ -1,0 +1,28 @@
+stages:
+  - push
+
+variables:
+  CONTAINER_IMAGE: $DOCKER_REGISTRY/$DOCKER_REGISTRY_USER/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
+  LATEST_CONTAINER_IMAGE: $DOCKER_REGISTRY/$DOCKER_REGISTRY_USER/$CI_PROJECT_NAME:latest
+
+before_script:
+  - docker login --username $DOCKER_REGISTRY_USER --password $DOCKER_REGISTRY_PASS $DOCKER_REGISTRY
+
+build-n-push:
+  stage: push
+  script:
+    - docker build --pull -t $CONTAINER_IMAGE .
+    - docker push $CONTAINER_IMAGE
+  tags:
+    - build_docker
+
+build-n-push-latest:
+  stage: push
+  script:
+    - docker build --pull -t $LATEST_CONTAINER_IMAGE .
+    - docker push $LATEST_CONTAINER_IMAGE
+  only:
+    variables:
+    - $CI_COMMIT_REF_NAME == "master"
+  tags:
+    - build_docker
