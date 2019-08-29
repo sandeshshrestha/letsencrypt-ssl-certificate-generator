@@ -1,4 +1,4 @@
-# Generate SSL certificate using DNS (TXT) verification
+# Generate SSL certificate using Letsencrypt DNS (TXT) verification
 
 #### 1. Setup ENV variable
 ```sh
@@ -13,7 +13,7 @@ docker run \
     -v $(pwd)/var:/var/lib/letsencrypt \
     -e CERT_EMAIL=$CERT_EMAIL \
     -e CERT_DOMAIN=$CERT_DOMAIN \
-    sandeshshrestha/ssl-certificate-generator:latest generate
+    sandeshshrestha/letsencrypt-ssl-certificate-generator:latest generate
 ```
 
 #### 3. Add TXT record in the domains DNS settings
